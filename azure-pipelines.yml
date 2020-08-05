@@ -10,6 +10,14 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      docker run -d -p 4444:4444 --shm-size=2g selenium/standalone-chrome
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -20,7 +28,13 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-    goals: 'test'
+    goals: 'compile'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
     
 
