@@ -17,6 +17,8 @@ public class LoginStepDefs {
 		driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.get("https://www.facebook.com");
+		driver.getTitle();
+
 	}
 
 	@When("^I provide valid username and password$")
